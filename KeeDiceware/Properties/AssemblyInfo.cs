@@ -1,16 +1,17 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("KeeDiceware")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Generate Diceware Passphrases in KeePass.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KeeDiceware")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("Aaron Papp")]
+[assembly: AssemblyProduct("KeePass Plugin")]
+[assembly: AssemblyCopyright("Copyright © Aaron Papp 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,6 +19,8 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+[assembly: CLSCompliant(false)]
+[assembly: NeutralResourcesLanguage("en-US")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("cfe8e47c-d9fc-46f6-a0bf-91a457291adc")]

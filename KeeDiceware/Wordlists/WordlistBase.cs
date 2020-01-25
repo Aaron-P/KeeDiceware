@@ -8,13 +8,25 @@ namespace KeeDiceware.Wordlists
 {
     public abstract class WordlistBase
     {
-        public static IList<WordlistBase> Wordlists => Types.Select(t => (WordlistBase)Activator.CreateInstance(t)).ToList();
+        public static IList<WordlistBase> Wordlists
+        {
+            get
+            {
+                return Types.Select(t => (WordlistBase)Activator.CreateInstance(t)).ToList();
+            }
+        }
 
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
-        public static Type[] Types => typeof(WordlistBase)
-            .Assembly.GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(WordlistBase)) && !t.IsAbstract)
-            .ToArray();
+        public static Type[] Types
+        {
+            get
+            {
+                return typeof(WordlistBase)
+                    .Assembly.GetTypes()
+                    .Where(t => t.IsSubclassOf(typeof(WordlistBase)) && !t.IsAbstract)
+                    .ToArray();
+            }
+        }
 
         public abstract string Description { get; }
 
@@ -30,12 +42,13 @@ namespace KeeDiceware.Wordlists
             return DisplayName;
         }
 
-        private IDictionary<string, string[]> Cache = new Dictionary<string, string[]>();
+        private readonly IDictionary<string, string[]> Cache = new Dictionary<string, string[]>();
 
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         protected string[] GetWordlistResource(string path)
         {
-            if (Cache.TryGetValue(path, out var cache))
+            string[] cache;
+            if (Cache.TryGetValue(path, out cache))
                 return cache;
 
             var assembly = typeof(WordlistBase).Assembly;

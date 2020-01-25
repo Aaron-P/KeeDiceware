@@ -8,7 +8,7 @@ namespace KeeDiceware.Extensions
         public static int Next(this CryptoRandomStream random, int min, int max)
         {
             if (min >= max)
-                throw new ArgumentOutOfRangeException(nameof(min));
+                throw new ArgumentOutOfRangeException("min" /*nameof(min)*/);
 
             var diff = (long)max - min;
             var upperBound = uint.MaxValue / diff * diff;

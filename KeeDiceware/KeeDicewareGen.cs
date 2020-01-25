@@ -17,20 +17,38 @@ namespace KeeDiceware
             Host = host;
         }
 
-        public override string Name => "Diceware Passphrase";
+        public override string Name
+        {
+            get
+            {
+                return "Diceware Passphrase";
+            }
+        }
 
-        public override bool SupportsOptions => true;
+        public override bool SupportsOptions
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-        public override PwUuid Uuid => new PwUuid(new Guid(((GuidAttribute)typeof(KeeDicewareGen).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value).ToByteArray());
+        public override PwUuid Uuid
+        {
+            get
+            {
+                return new PwUuid(new Guid(((GuidAttribute)typeof(KeeDicewareGen).Assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value).ToByteArray());
+            }
+        }
 
         private IPluginHost Host { get; set; }
 
         public override ProtectedString Generate(PwProfile prf, CryptoRandomStream crsRandomSource)
         {
             if (prf == null)
-                throw new ArgumentNullException(nameof(prf));
+                throw new ArgumentNullException("prf" /*nameof(prf)*/);
             if (crsRandomSource == null)
-                throw new ArgumentNullException(nameof(crsRandomSource));
+                throw new ArgumentNullException("crsRandomSource" /*nameof(crsRandomSource)*/);
 
             //if (prf == null)
             //    Debug.Assert(false);

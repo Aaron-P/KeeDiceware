@@ -19,13 +19,25 @@ namespace KeeDiceware.Generators
             Count = DefaultCount;
         }
 
-        public static IList<GeneratorBase> Generators => Types.Select(t => (GeneratorBase)Activator.CreateInstance(t)).ToList();
+        public static IList<GeneratorBase> Generators
+        {
+            get
+            {
+                return Types.Select(t => (GeneratorBase)Activator.CreateInstance(t)).ToList();
+            }
+        }
 
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
-        public static Type[] Types => typeof(GeneratorBase)
-            .Assembly.GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(GeneratorBase)) && !t.IsAbstract)
-            .ToArray();
+        public static Type[] Types
+        {
+            get
+            {
+                return typeof(GeneratorBase)
+                    .Assembly.GetTypes()
+                    .Where(t => t.IsSubclassOf(typeof(GeneratorBase)) && !t.IsAbstract)
+                    .ToArray();
+            }
+        }
 
         public uint Count { get; set; }
 
@@ -44,7 +56,7 @@ namespace KeeDiceware.Generators
             return DisplayName;
         }
 
-        protected string[] GetWordlist(Settings settings)
+        protected static string[] GetWordlist(Settings settings)
         {
             return WordlistBase.Wordlists.Single(_ => _.Key == settings.Wordlist).Wordlist;
         }

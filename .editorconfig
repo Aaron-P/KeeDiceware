@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# CA1507: Use nameof to express symbol names
+# Not supported by C# 5, which KeePass uses to compile plgx plugins.
+dotnet_diagnostic.CA1507.severity = silent
+
+# IDE0031: Use null propagation
+# Not supported by C# 5, which KeePass uses to compile plgx plugins.
+dotnet_style_null_propagation = true:silent
+
+# IDE0018: Inline variable declaration
+# Not supported by C# 5, which KeePass uses to compile plgx plugins.
+csharp_style_inlined_variable_declaration = true:silent

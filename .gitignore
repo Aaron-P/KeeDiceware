@@ -264,5 +264,6 @@ __pycache__/
 */packages/
 *.snk
 **/.vs/*
+dist/*
 KeePass-2.41/*
 _stuff/*

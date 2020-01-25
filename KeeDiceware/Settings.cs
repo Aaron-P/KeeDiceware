@@ -22,9 +22,10 @@ namespace KeeDiceware
             try
             {
                 var deserializer = new XmlSerializer(typeof(Settings), GeneratorBase.Types);
-                using (var reader = new StringReader(data))
+                using (var stringReader = new StringReader(data))
+                using (var xmlReader = XmlReader.Create(stringReader))
                 {
-                    var settings = (Settings)deserializer.Deserialize(reader);
+                    var settings = (Settings)deserializer.Deserialize(xmlReader);
                     //Remove non-existant generators?
                     foreach (var generator in GeneratorBase.Generators)
                     {
@@ -34,16 +35,16 @@ namespace KeeDiceware
 
                     //Error out and create new setting instead of this?
                     if (!GeneratorBase.Generators.Any(_ => _.Key == settings.Generator))
-                        settings.Generator = nameof(WordCountGenerator);
+                        settings.Generator = "WordCountGenerator";//nameof(WordCountGenerator);
                     if (!WordlistBase.Wordlists.Any(_ => _.Key == settings.Wordlist))
-                        settings.Wordlist = nameof(EFFLargeWordlist);
+                        settings.Wordlist = "EFFLargeWordlist";//nameof(EFFLargeWordlist);
 
                     return settings;
                 }
             }
             catch (InvalidOperationException)
             {
-                return default(Settings);
+                return null;//default(Settings);
             }
         }
 
@@ -59,8 +60,8 @@ namespace KeeDiceware
 
         public Settings()
         {
-            Wordlist = nameof(EFFLargeWordlist);
-            Generator = nameof(WordCountGenerator);
+            Wordlist = "EFFLargeWordlist";//nameof(EFFLargeWordlist);
+            Generator = "WordCountGenerator";//nameof(WordCountGenerator);
             Generators = new List<GeneratorBase>();
         }
 
@@ -69,11 +70,12 @@ namespace KeeDiceware
         public string Generator { get; set; }
 
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Needs to be serializable.")]
-        public List<GeneratorBase> Generators { get; }
+        public List<GeneratorBase> Generators { get; private set; }
 
         public ProtectedString Generate(CryptoRandomStream random)
         {
-            return Generators.SingleOrDefault(_ => _.Key == Generator)?.Generate(random, this);
+            var generator = Generators.SingleOrDefault(_ => _.Key == Generator);
+            return generator == null ? null : generator.Generate(random, this);
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]

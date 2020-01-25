@@ -8,7 +8,7 @@ namespace KeeDiceware.Forms
 {
     public partial class SettingsForm : Form
     {
-        private Settings Settings;
+        private readonly Settings Settings;
 
         public SettingsForm(ref Settings settings)
         {
@@ -17,17 +17,17 @@ namespace KeeDiceware.Forms
             InitializeComponent();
             //System.Diagnostics.Debugger.Launch();
 
-            ComboBoxWordlist.DisplayMember = nameof(WordlistBase.DisplayName);
-            ComboBoxWordlist.ValueMember = nameof(WordlistBase.Key);
+            ComboBoxWordlist.DisplayMember = "DisplayName";//nameof(WordlistBase.DisplayName);
+            ComboBoxWordlist.ValueMember = "Key";//nameof(WordlistBase.Key);
             ComboBoxWordlist.DataSource = WordlistBase.Wordlists.OrderBy(_ => _.DisplayName).ToList();
-            ComboBoxWordlist.DataBindings.Add(nameof(ComboBoxWordlist.SelectedValue), Settings, nameof(Settings.Wordlist));
+            ComboBoxWordlist.DataBindings.Add("SelectedValue" /*nameof(ComboBoxWordlist.SelectedValue)*/, Settings, "Wordlist" /*nameof(Settings.Wordlist)*/);
 
-            ComboBoxGenerator.DisplayMember = nameof(GeneratorBase.DisplayName);
-            ComboBoxGenerator.ValueMember = nameof(GeneratorBase.Key);
+            ComboBoxGenerator.DisplayMember = "DisplayName";//nameof(GeneratorBase.DisplayName);
+            ComboBoxGenerator.ValueMember = "Key";//nameof(GeneratorBase.Key);
             ComboBoxGenerator.DataSource = Settings.Generators.OrderBy(_ => _.DisplayName).ToList();//GeneratorBase.Generators;
-            ComboBoxGenerator.DataBindings.Add(nameof(ComboBoxGenerator.SelectedValue), Settings, nameof(Settings.Generator));
+            ComboBoxGenerator.DataBindings.Add("SelectedValue" /*nameof(ComboBoxGenerator.SelectedValue)*/, Settings, "Generator" /*nameof(Settings.Generator)*/);
 
-            //NumericUpDownCount.DataBindings.Add(nameof(NumericUpDownCount.Value))
+            //NumericUpDownCount.DataBindings.Add("Value" /*nameof(NumericUpDownCount.Value)*/)
 
             //hmmm
             NumericUpDownCount.Value = Settings.Generators.Single(_ => _.Key == (string)ComboBoxGenerator.SelectedValue).Count;

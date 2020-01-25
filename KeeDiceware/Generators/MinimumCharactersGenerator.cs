@@ -8,20 +8,44 @@ namespace KeeDiceware.Generators
 {
     public class MinimumCharactersGenerator : GeneratorBase
     {
-        public override uint DefaultCount => 30;
+        public override uint DefaultCount
+        {
+            get
+            {
+                return 30;
+            }
+        }
 
-        public override string Description => throw new NotImplementedException();
+        public override string Description
+        {
+            get
+            {
+                return null;
+            }
+        }
 
-        public override string DisplayName => "Minimum Character Count";
+        public override string DisplayName
+        {
+            get
+            {
+                return "Minimum Character Count";
+            }
+        }
 
-        public override string Key => nameof(MinimumCharactersGenerator);
+        public override string Key
+        {
+            get
+            {
+                return "MinimumCharactersGenerator";//nameof(MinimumCharactersGenerator);
+            }
+        }
 
         public override ProtectedString Generate(CryptoRandomStream random, Settings settings)
         {
             if (random == null)
-                throw new ArgumentNullException(nameof(random));
+                throw new ArgumentNullException("random" /*nameof(random)*/);
             if (settings == null)
-                throw new ArgumentNullException(nameof(settings));
+                throw new ArgumentNullException("settings" /*nameof(settings)*/);
 
             var wordlist = GetWordlist(settings);
             var result = new List<string>();

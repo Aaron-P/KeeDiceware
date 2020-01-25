@@ -6,12 +6,36 @@ namespace KeeDiceware.Wordlists
     [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "EFF")]
     public sealed class EFFShort1Wordlist : WordlistBase
     {
-        public override string Description => "4 dice per word; log2(6^4) ~= 10.3 bits per word.";
+        public override string Description
+        {
+            get
+            {
+                return "4 dice per word; log2(6^4) ~= 10.3 bits per word.";
+            }
+        }
 
-        public override string DisplayName => "EFF Short Wordlist #1";
+        public override string DisplayName
+        {
+            get
+            {
+                return "EFF Short Wordlist #1";
+            }
+        }
 
-        public override string Key => nameof(EFFShort1Wordlist);
+        public override string Key
+        {
+            get
+            {
+                return "EFFShort1Wordlist";//nameof(EFFShort1Wordlist);
+            }
+        }
 
-        public override string[] Wordlist => GetWordlistResource("KeeDiceware.Resources.eff_short_wordlist_1.txt");
+        public override string[] Wordlist
+        {
+            get
+            {
+                return GetWordlistResource("KeeDiceware.Resources.eff_short_wordlist_1.txt");
+            }
+        }
     }
 }

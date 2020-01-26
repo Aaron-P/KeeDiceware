@@ -8,6 +8,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeeDicewareTest", "KeeDicewareTest\KeeDicewareTest.csproj", "{1BD6FA85-F37B-4329-AFF1-1F5E003D76E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA4317D8-BDE3-4831-B70F-00962FE901B9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		version.txt = version.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

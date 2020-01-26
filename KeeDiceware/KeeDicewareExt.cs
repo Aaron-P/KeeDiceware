@@ -8,6 +8,14 @@ namespace KeeDiceware
         private IPluginHost m_host = null;
         private KeeDicewareGen m_gen = null;
 
+        public override string UpdateUrl
+        {
+            get
+            {
+                return "https://github.com/Aaron-P/KeeDiceware/blob/master/version.txt";
+            }
+        }
+
         public override bool Initialize(IPluginHost host)
         {
             if (host == null)

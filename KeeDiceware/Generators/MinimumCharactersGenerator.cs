@@ -53,7 +53,7 @@ namespace KeeDiceware.Generators
             {
                 result.Add(wordlist[random.Next(0, wordlist.Length)]);
             }
-            while (string.Join(string.Empty, result.ToArray()).Length < Count);
+            while (string.Join(Separator, result.ToArray()).Length < Count);
             return new ProtectedString(true, string.Join(Separator, result.ToArray()));
         }
     }

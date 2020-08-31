@@ -12,7 +12,7 @@ namespace KeeDiceware
         {
             get
             {
-                return "https://github.com/Aaron-P/KeeDiceware/blob/master/version.txt";
+                return "https://raw.githubusercontent.com/Aaron-P/KeeDiceware/master/version.txt";
             }
         }
 

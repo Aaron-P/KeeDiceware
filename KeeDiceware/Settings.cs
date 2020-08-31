@@ -35,9 +35,9 @@ namespace KeeDiceware
 
                     //Error out and create new setting instead of this?
                     if (!GeneratorBase.Generators.Any(_ => _.Key == settings.Generator))
-                        settings.Generator = "WordCountGenerator";//nameof(WordCountGenerator);
+                        settings.Generator = typeof(WordCountGenerator).Name;
                     if (!WordlistBase.Wordlists.Any(_ => _.Key == settings.Wordlist))
-                        settings.Wordlist = "EFFLargeWordlist";//nameof(EFFLargeWordlist);
+                        settings.Wordlist = typeof(EFFLargeWordlist).Name;
 
                     return settings;
                 }
@@ -60,8 +60,8 @@ namespace KeeDiceware
 
         public Settings()
         {
-            Wordlist = "EFFLargeWordlist";//nameof(EFFLargeWordlist);
-            Generator = "WordCountGenerator";//nameof(WordCountGenerator);
+            Wordlist = typeof(EFFLargeWordlist).Name;
+            Generator = typeof(WordCountGenerator).Name;
             Generators = new List<GeneratorBase>();
         }
 

@@ -36,7 +36,7 @@ namespace KeeDiceware.Generators
         {
             get
             {
-                return "WordCountGenerator";//nameof(WordCountGenerator);
+                return typeof(WordCountGenerator).Name;
             }
         }
 

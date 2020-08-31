@@ -27,7 +27,7 @@ namespace KeeDiceware.Wordlists
         {
             get
             {
-                return "EFFLargeWordlist";//nameof(EFFLargeWordlist);
+                return typeof(EFFLargeWordlist).Name;
             }
         }
 

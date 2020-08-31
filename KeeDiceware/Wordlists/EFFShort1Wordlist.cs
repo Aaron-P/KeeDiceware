@@ -26,7 +26,7 @@ namespace KeeDiceware.Wordlists
         {
             get
             {
-                return "EFFShort1Wordlist";//nameof(EFFShort1Wordlist);
+                return typeof(EFFShort1Wordlist).Name;
             }
         }
 

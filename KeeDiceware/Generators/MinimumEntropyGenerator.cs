@@ -36,7 +36,7 @@ namespace KeeDiceware.Generators
         {
             get
             {
-                return "MinimumEntropyGenerator";//nameof(MinimumEntropyGenerator);
+                return typeof(MinimumEntropyGenerator).Name;
             }
         }
 

@@ -36,7 +36,7 @@ namespace KeeDiceware.Generators
         {
             get
             {
-                return "MinimumCharactersGenerator";//nameof(MinimumCharactersGenerator);
+                return typeof(MinimumCharactersGenerator).Name;
             }
         }
 

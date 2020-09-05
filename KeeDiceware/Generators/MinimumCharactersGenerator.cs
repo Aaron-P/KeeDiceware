@@ -6,8 +6,12 @@ using System.Collections.Generic;
 
 namespace KeeDiceware.Generators
 {
+    /// <summary>
+    /// A <see cref="GeneratorBase"/> subclass for passphrases limited by minimum character count.
+    /// </summary>
     public class MinimumCharactersGenerator : GeneratorBase
     {
+        /// <inheritdoc/>
         public override uint DefaultCount
         {
             get
@@ -16,6 +20,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string Description
         {
             get
@@ -24,6 +29,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string DisplayName
         {
             get
@@ -32,6 +38,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string Key
         {
             get
@@ -40,6 +47,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override ProtectedString Generate(CryptoRandomStream random, Settings settings)
         {
             if (random == null)

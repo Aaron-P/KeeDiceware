@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace KeeDiceware.Wordlists
 {
-    [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "EFF")]
+    /// <summary>
+    /// A <see cref="WordlistBase"/> subclass for the "EFF Short Wordlist #2".
+    /// </summary>
     public sealed class EFFShort2Wordlist : WordlistBase
     {
+        /// <inheritdoc/>
         public override string Description
         {
             get
@@ -14,6 +16,7 @@ namespace KeeDiceware.Wordlists
             }
         }
 
+        /// <inheritdoc/>
         public override string DisplayName
         {
             get
@@ -22,6 +25,7 @@ namespace KeeDiceware.Wordlists
             }
         }
 
+        /// <inheritdoc/>
         public override string Key
         {
             get
@@ -30,6 +34,7 @@ namespace KeeDiceware.Wordlists
             }
         }
 
+        /// <inheritdoc/>
         public override string[] Wordlist
         {
             get

@@ -75,7 +75,6 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="KeeDicewareExt.cs" />
     <Compile Include="KeeDicewareGen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,9 +85,6 @@
     <Compile Include="Wordlists\WordlistBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.editorconfig">
-      <Link>.editorconfig</Link>
-    </None>
     <None Include="KeeDiceware.snk" />
     <None Include="packages.config" />
   </ItemGroup>

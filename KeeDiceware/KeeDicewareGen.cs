@@ -10,13 +10,23 @@ using System.Windows.Forms;
 
 namespace KeeDiceware
 {
+    /// <summary>
+    /// The class used by KeePass to generate a password.
+    /// </summary>
     public sealed class KeeDicewareGen : CustomPwGenerator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeeDicewareGen"/> class.
+        /// </summary>
+        /// <param name="host">An <see cref="IPluginHost"/> instance.</param>
         public KeeDicewareGen(IPluginHost host)
         {
             Host = host;
         }
 
+        /// <summary>
+        /// Gets the name of the KeePass password generator plugin.
+        /// </summary>
         public override string Name
         {
             get
@@ -25,6 +35,9 @@ namespace KeeDiceware
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the plugin uses custom options.
+        /// </summary>
         public override bool SupportsOptions
         {
             get
@@ -33,6 +46,9 @@ namespace KeeDiceware
             }
         }
 
+        /// <summary>
+        /// Gets a unique identifier for the password generator.
+        /// </summary>
         public override PwUuid Uuid
         {
             get
@@ -43,6 +59,12 @@ namespace KeeDiceware
 
         private IPluginHost Host { get; set; }
 
+        /// <summary>
+        /// Generates a password with a given profile.
+        /// </summary>
+        /// <param name="prf">A password generator profile.</param>
+        /// <param name="crsRandomSource">A <see cref="CryptoRandomStream"/> instance for generating random numbers.</param>
+        /// <returns>A <see cref="ProtectedString"/> containing a generated password.</returns>
         public override ProtectedString Generate(PwProfile prf, CryptoRandomStream crsRandomSource)
         {
             if (prf == null)
@@ -59,6 +81,11 @@ namespace KeeDiceware
             return settings.Generate(crsRandomSource);
         }
 
+        /// <summary>
+        /// Opens a form to get password generator settings from the user.
+        /// </summary>
+        /// <param name="strCurrentOptions">A serialized set of 'current' options.</param>
+        /// <returns>A serialized set of options.</returns>
         public override string GetOptions(string strCurrentOptions)
         {
             var settings = Settings.Deserialize(strCurrentOptions);
@@ -68,12 +95,13 @@ namespace KeeDiceware
                 if (form.ShowDialog(Host.MainWindow) == DialogResult.OK)
                     return settings.Serialize();
             }
+
             return strCurrentOptions;
         }
 
-        //wordlist cache
-        //parsing of diceware style lists, remove numeric strings
-        //Pass config instead
-        //config option include or not the separator for character/entropy
+        // wordlist cache
+        // parsing of diceware style lists, remove numeric strings
+        // Pass config instead
+        // config option include or not the separator for character/entropy
     }
 }

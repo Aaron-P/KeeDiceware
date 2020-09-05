@@ -7,13 +7,32 @@ using System.Reflection;
 
 namespace KeeDiceware.Wordlists
 {
+    /// <summary>
+    /// Base class for passphrase wordlists.
+    /// </summary>
     public abstract class WordlistBase
     {
+        /// <summary>
+        /// Gets a list of instantiated <see cref="WordlistBase"/> subclasses.
+        /// </summary>
+        public static readonly List<WordlistBase> Wordlists = new List<WordlistBase>();
+
+        /// <summary>
+        /// The file extension for 'plain' wordlists.
+        /// </summary>
         private const string WordlistExtension = ".wordlist";
 
+        /// <summary>
+        /// The file extension for 'diceware' wordlists.
+        /// </summary>
         private const string DicewareExtension = ".diceware";
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
+        /// <summary>
+        /// A simple cache used when loading embedded resource wordlists.
+        /// </summary>
+        private readonly IDictionary<string, string[]> _cache = new Dictionary<string, string[]>();
+
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "We want to catch all exceptions so we can continue.")]
         static WordlistBase()
         {
             Wordlists.AddRange(Types.Select(t => (WordlistBase)Activator.CreateInstance(t)).ToList());
@@ -38,12 +57,15 @@ namespace KeeDiceware.Wordlists
                 {
                     Wordlists.Add(new CustomWordlist(file, fileType));
                 }
-                catch { }
+                catch
+                {
+                }
             }
         }
 
-        public static readonly List<WordlistBase> Wordlists = new List<WordlistBase>();
-
+        /// <summary>
+        /// Gets an array of types that are a subclass of <see cref="WordlistBase"/> and have a default constructor.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
         public static Type[] Types
         {
@@ -56,37 +78,52 @@ namespace KeeDiceware.Wordlists
             }
         }
 
+        /// <summary>
+        /// Gets the description of the wordlist.
+        /// </summary>
         public abstract string Description { get; }
 
+        /// <summary>
+        /// Gets the display name of the wordlist.
+        /// </summary>
         public abstract string DisplayName { get; }
 
+        /// <summary>
+        /// Gets the internal setting key of the wordlist.
+        /// </summary>
         public abstract string Key { get; }
 
+        /// <summary>
+        /// Gets the set of words in the wordlist.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
         public abstract string[] Wordlist { get; }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return DisplayName;
         }
 
-        private readonly IDictionary<string, string[]> Cache = new Dictionary<string, string[]>();
-
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        /// <summary>
+        /// Gets a set of words from a wordlist embedded as a resource.
+        /// </summary>
+        /// <param name="path">The embedded resource path.</param>
+        /// <returns>The set of words from the wordlist.</returns>
         protected string[] GetWordlistResource(string path)
         {
             string[] cache;
-            if (Cache.TryGetValue(path, out cache))
+            if (_cache.TryGetValue(path, out cache))
                 return cache;
 
             var assembly = typeof(WordlistBase).Assembly;
             using (var reader = new StreamReader(assembly.GetManifestResourceStream(path)))
             {
                 var content = reader.ReadToEnd();
-                //'null' seperator splits on whitespace. See: https://docs.microsoft.com/en-us/dotnet/api/system.string.split
-                //TODO: Take wordlists as-is and remove dice numbers?
+                // 'null' seperator splits on whitespace. See: https://docs.microsoft.com/en-us/dotnet/api/system.string.split
+                // TODO: Take wordlists as-is and remove dice numbers?
                 var value = content.Split(default(char[]), StringSplitOptions.RemoveEmptyEntries);
-                Cache.Add(path, value);
+                _cache.Add(path, value);
                 return value;
             }
         }

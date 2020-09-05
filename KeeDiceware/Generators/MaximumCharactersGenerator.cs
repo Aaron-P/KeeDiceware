@@ -7,8 +7,12 @@ using System.Linq;
 
 namespace KeeDiceware.Generators
 {
+    /// <summary>
+    /// A <see cref="GeneratorBase"/> subclass for passphrases limited by maximum character count.
+    /// </summary>
     public class MaximumCharactersGenerator : GeneratorBase
     {
+        /// <inheritdoc/>
         public override uint DefaultCount
         {
             get
@@ -17,6 +21,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string Description
         {
             get
@@ -25,6 +30,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string DisplayName
         {
             get
@@ -33,6 +39,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override string Key
         {
             get
@@ -41,6 +48,7 @@ namespace KeeDiceware.Generators
             }
         }
 
+        /// <inheritdoc/>
         public override ProtectedString Generate(CryptoRandomStream random, Settings settings)
         {
             if (random == null)

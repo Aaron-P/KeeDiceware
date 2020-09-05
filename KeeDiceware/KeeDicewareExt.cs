@@ -1,41 +1,58 @@
-﻿using System;
-using KeePass.Plugins;
+﻿using KeePass.Plugins;
+using System;
 
 namespace KeeDiceware
 {
+    /// <summary>
+    /// The main KeePass plugin class.
+    /// </summary>
     public sealed class KeeDicewareExt : Plugin
     {
-        private IPluginHost m_host = null;
-        private KeeDicewareGen m_gen = null;
+        private static readonly Uri UpdateUri = new Uri("https://raw.githubusercontent.com/Aaron-P/KeeDiceware/master/version.txt", UriKind.Absolute);
 
+        private IPluginHost _host;
+
+        private KeeDicewareGen _gen;
+
+        /// <summary>
+        /// Gets the url to check for the latest plugin version information.
+        /// </summary>
         public override string UpdateUrl
         {
             get
             {
-                return "https://raw.githubusercontent.com/Aaron-P/KeeDiceware/master/version.txt";
+                return UpdateUri.AbsoluteUri;
             }
         }
 
+        /// <summary>
+        /// Initializes the KeePass plugin.
+        /// </summary>
+        /// <param name="host">An <see cref="IPluginHost"/> instance.</param>
+        /// <returns>True if initialization was successful, otherwise false.</returns>
         public override bool Initialize(IPluginHost host)
         {
             if (host == null)
                 return false;
-            m_host = host;
+            _host = host;
 
-            m_gen = new KeeDicewareGen(m_host);
-            m_host.PwGeneratorPool.Add(m_gen);
+            _gen = new KeeDicewareGen(_host);
+            _host.PwGeneratorPool.Add(_gen);
 
             return true;
         }
 
+        /// <summary>
+        /// Terminates the KeePass plugin.
+        /// </summary>
         public override void Terminate()
         {
-            if (m_host != null && m_gen != null)
-                m_host.PwGeneratorPool.Remove(m_gen.Uuid);
-            if (m_host != null)
-                m_host = null;
-            if (m_gen != null)
-                m_gen = null;
+            if (_host != null && _gen != null)
+                _host.PwGeneratorPool.Remove(_gen.Uuid);
+            if (_host != null)
+                _host = null;
+            if (_gen != null)
+                _gen = null;
         }
     }
 }
